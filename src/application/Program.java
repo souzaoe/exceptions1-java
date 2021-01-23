@@ -33,6 +33,7 @@ public class Program {
 			System.out.print("Check-out data: (dd/MM/yyyy): ");
 			checkOut = sdf.parse(sc.next());
 			
+<<<<<<< HEAD
 			reservation.updateDates(checkIn, checkOut);
 			System.out.println("Reserva: " + reservation);							
 		}
@@ -42,6 +43,16 @@ public class Program {
 		catch(IllegalArgumentException e) {
 			System.out.println("Erro na reserva: " + e.getMessage());
 		}
+=======
+			String error = reservation.updateDates(checkIn, checkOut);
+			if (error != null) {
+				System.out.println("Erro na reserva: " + error);
+			}
+			else {
+				System.out.println("Reserva: " + reservation);
+			}						
+		}		
+>>>>>>> e8c5cc6f94689f287f9f0271b18e00da8c81bcc3
 		sc.close(); 
 	}
 }
