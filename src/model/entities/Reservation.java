@@ -4,13 +4,18 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+import model.exceptions.DomainException;
+
 public class Reservation {
 	private Integer roomNumber; 
 	private Date checkIn; 
 	private Date checkOut;
 	
 	private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-	public Reservation(Integer roomNumber, Date checkIn, Date checkOut) {
+	public Reservation(Integer roomNumber, Date checkIn, Date checkOut) throws DomainException{
+		if (!checkOut.after(checkIn)){
+			throw new DomainException("Erro na reserva: A data de saida deve ser após a data de entrada");
+		}
 		this.roomNumber = roomNumber;
 		this.checkIn = checkIn;
 		this.checkOut = checkOut;
@@ -37,30 +42,18 @@ public class Reservation {
 		return TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
 	}
 	
-<<<<<<< HEAD
-	public void updateDates(Date checkIn, Date checkOut) {
+	public void updateDates(Date checkIn, Date checkOut) throws DomainException{
 		
 		Date now = new Date(); 
 		if(checkIn.before(now) || checkOut.before(now)) {
-			throw new IllegalArgumentException("Erro na reserva: A data de reserva deve ser futura");
+			throw new DomainException("Erro na reserva: A data de reserva deve ser futura");
 		}
 		if (!checkOut.after(checkIn)){
-			throw new IllegalArgumentException("Erro na reserva: A data de saida deve ser após a data de entrada");
-=======
-	public String updateDates(Date checkIn, Date checkOut) {
-		
-		Date now = new Date(); 
-		if(checkIn.before(now) || checkOut.before(now)) {
-			return "Erro na reserva: A data de reserva deve ser futura";
-		}
-		if (!checkOut.after(checkIn)){
-			return "Erro na reserva: A data de saida deve ser após a data de entrada";
->>>>>>> e8c5cc6f94689f287f9f0271b18e00da8c81bcc3
+			throw new DomainException("Erro na reserva: A data de saida deve ser após a data de entrada");
 		}
 		
 		this.checkIn = checkIn; 
 		this.checkOut = checkOut; 
-		return null; 
 	}
 	
 	@Override

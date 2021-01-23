@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.Scanner;
 
 import model.entities.Reservation;
+import model.exceptions.DomainException;
 
 public class Program {
 
@@ -33,26 +34,15 @@ public class Program {
 			System.out.print("Check-out data: (dd/MM/yyyy): ");
 			checkOut = sdf.parse(sc.next());
 			
-<<<<<<< HEAD
 			reservation.updateDates(checkIn, checkOut);
 			System.out.println("Reserva: " + reservation);							
 		}
 		catch(ParseException e) {
 			System.out.println("Formato de data invlido");
 		}
-		catch(IllegalArgumentException e) {
+		catch(DomainException e) {
 			System.out.println("Erro na reserva: " + e.getMessage());
 		}
-=======
-			String error = reservation.updateDates(checkIn, checkOut);
-			if (error != null) {
-				System.out.println("Erro na reserva: " + error);
-			}
-			else {
-				System.out.println("Reserva: " + reservation);
-			}						
-		}		
->>>>>>> e8c5cc6f94689f287f9f0271b18e00da8c81bcc3
 		sc.close(); 
 	}
 }
