@@ -9,22 +9,19 @@ import model.entities.Reservation;
 
 public class Program {
 
-	public static void main(String[] args) throws ParseException {	
+	public static void main(String[] args) {	
 		
 		Scanner sc = new Scanner(System.in); 
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		
-		System.out.print("Numero do quarto: ");
-		int number = sc.nextInt();
-		System.out.print("Check-in data: (dd/MM/yyyy): ");
-		Date checkIn = sdf.parse(sc.next()); 
-		System.out.print("Check-out data: (dd/MM/yyyy): ");
-		Date checkOut = sdf.parse(sc.next());
-		
-		if(!checkOut.after(checkIn)) {
-			System.out.println("Erro na reserva: Data de saída(Check-out) é após a data de entrada (check-in)");
-		}
-		else {
+		try {
+			System.out.print("Numero do quarto: ");
+			int number = sc.nextInt();
+			System.out.print("Check-in data: (dd/MM/yyyy): ");
+			Date checkIn = sdf.parse(sc.next()); 
+			System.out.print("Check-out data: (dd/MM/yyyy): ");
+			Date checkOut = sdf.parse(sc.next());
+			
+			
 			Reservation reservation = new Reservation(number, checkIn, checkOut);
 			System.out.println("Reservardo: " + reservation);
 			
@@ -36,18 +33,15 @@ public class Program {
 			System.out.print("Check-out data: (dd/MM/yyyy): ");
 			checkOut = sdf.parse(sc.next());
 			
-			Date now = new Date(); 
-			if(checkIn.before(now) || checkOut.before(now)) {
-				System.out.println("Erro na reserva: A data de reserva deve ser futura");
-			}
-			else if (!checkOut.after(checkIn)){
-				System.out.println("Erro na reserva: A data de saida deve ser após a data de entrada");
-			}
-			else {
-				reservation.updateDates(checkIn, checkOut);
-				System.out.println("Reservardo: " + reservation);
-			}			
-		}		
+			reservation.updateDates(checkIn, checkOut);
+			System.out.println("Reserva: " + reservation);							
+		}
+		catch(ParseException e) {
+			System.out.println("Formato de data invlido");
+		}
+		catch(IllegalArgumentException e) {
+			System.out.println("Erro na reserva: " + e.getMessage());
+		}
 		sc.close(); 
 	}
 }

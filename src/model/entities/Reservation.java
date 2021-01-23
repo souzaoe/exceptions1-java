@@ -38,6 +38,15 @@ public class Reservation {
 	}
 	
 	public void updateDates(Date checkIn, Date checkOut) {
+		
+		Date now = new Date(); 
+		if(checkIn.before(now) || checkOut.before(now)) {
+			throw new IllegalArgumentException("Erro na reserva: A data de reserva deve ser futura");
+		}
+		if (!checkOut.after(checkIn)){
+			throw new IllegalArgumentException("Erro na reserva: A data de saida deve ser após a data de entrada");
+		}
+		
 		this.checkIn = checkIn; 
 		this.checkOut = checkOut; 
 	}
