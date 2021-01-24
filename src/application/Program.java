@@ -27,7 +27,7 @@ public class Program {
 			System.out.println("Reservardo: " + reservation);
 			
 			System.out.println("______________________________________");
-			System.out.print("Numero do quarto: ");
+			System.out.print("Atualizacao da reserva, informe o quarto: ");
 			number = sc.nextInt();
 			System.out.print("Check-in data: (dd/MM/yyyy): ");
 			checkIn = sdf.parse(sc.next()); 
@@ -43,6 +43,10 @@ public class Program {
 		catch(DomainException e) {
 			System.out.println("Erro na reserva: " + e.getMessage());
 		}
+		catch (RuntimeException e) {
+			System.out.println("Erro inesperado!");
+		}
+		
 		sc.close(); 
 	}
 }
